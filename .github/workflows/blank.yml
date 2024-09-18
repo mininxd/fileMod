@@ -1,0 +1,29 @@
+name: Download APK and Put on Release
+on:
+  workflow_dispatch:
+jobs:
+  run:
+    permissions: write-all
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install Dependencies 
+        run : |
+         sudo apt install -y curl wget unzip zip 
+
+      - name: Download APK
+        run : |
+         wget https://2010.filemail.com/api/file/get?filekey=_7m_2GKy7oJY-EjqudU3bEDCwr6_wjenqkCmDrl0ZNsSNQtM1msQq-oId4qZZjeF&track=Uo6D8a3O&pk_vid=cf897e6ea1754b481726649574619a1d
+         ls -a
+         tree ./
+
+      
+      - name: Upload modules to release
+        uses: svenstaro/upload-release-action@v2
+        with:
+          body: add chromeXt.apk
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: ./chromiumXt.apk
+          release_name: APK Release
+          tag: ${{ steps.next_ver_code.outputs.NEXT_VER_CODE }}
+          file_glob: true
+          overwrite: true
