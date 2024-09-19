@@ -15,7 +15,7 @@ jobs:
       - uses: SebRollen/toml-action@v1.2.0
         id: read_app
         with:
-          file: 'app.toml'
+          file: 'files.toml'
           field: 'app'
           run: |
            sudo wget ${{steps.read_app.outputs.url}}${{steps.read_app.outputs.chromium.url}}
