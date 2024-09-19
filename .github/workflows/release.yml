@@ -24,10 +24,10 @@ jobs:
 
       - name: Download APK
         run: |
-          sudo wget ${{steps.read_app.outputs.url}}${{steps.read_app.outputs.chromium.url}}
+          sudo wget `${{steps.read_app.outputs.url}}${{steps.read_app.outputs.chromium.url}}`
           ls -a
           tree ./
-          mv "{{steps.read_app.outputs.chromium.url}}" chromium-signed.apk
+          mv `{{steps.read_app.outputs.chromium.url}}` chromium-signed.apk
 
       - name: Upload to Release
         uses: svenstaro/upload-release-action@v2
