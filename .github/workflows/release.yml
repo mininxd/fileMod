@@ -11,24 +11,37 @@ jobs:
       - name: Install Dependencies
         run: |
           sudo apt install -y curl wget unzip zip
+          pip install tomli json
+          pip3 install tomli json
 
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Read .TOML
-        uses: SebRollen/toml-action@v1.2.0
-        id: read_toml
+      - name: Setup Python
+        uses: actions/setup-python@v2
         with:
-          file: 'files.toml'
-          field: 'app'
+         python-version: '3.x' # or specify a specific version, e.g. '3.9'
 
+      - name: Read TOML config
+        id: read_toml
+        run: |
+         python -c "import tomli; print(tomli.load(open('files.toml', 'rb')))"
+         echo "::set-output name=app::$(python -c "import tomli; print(tomli.load(open('files.toml', 'rb'))))""
+        outputs:
+         app: ${{ steps.read_toml.outputs.app }}
+      
+      - name: Debug
+        run: |
+         echo "App URL: ${{ steps.read_toml.outputs.app.url }}"
+
+    
       - name: Download APK
         run: |
           sudo wget "${{steps.read_toml.outputs.app.url}}${{steps.read_toml.outputs.app.chromium.url}}"
           ls -a
           tree ./
           mv "${{steps.read_toml.outputs.app.chromium.url}}" chromium-signed.apk
-
+          
       - name: Upload to Release
         uses: svenstaro/upload-release-action@v2
         with:
