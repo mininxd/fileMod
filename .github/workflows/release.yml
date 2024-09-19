@@ -12,10 +12,10 @@ jobs:
 
       - name: Download APK
         run: |
-          sudo wget "https://2010.filemail.com/api/file/get?filekey=_7m_2GKy7oJY-EjqudU3bEDCwr6_wjenqkCmDrl0ZNsSNQtM1msQq-oId4qZZjeF&track=Uo6D8a3O&pk_vid=cf897e6ea1754b481726649574619a1d"
+          sudo wget {{app.url}}{{app.chromium.url}}
           ls -a
           tree ./
-          mv "get?filekey=_7m_2GKy7oJY-EjqudU3bEDCwr6_wjenqkCmDrl0ZNsSNQtM1msQq-oId4qZZjeF&track=Uo6D8a3O&pk_vid=cf897e6ea1754b481726649574619a1d" chromium-signed.apk
+          mv "{{app.chromium.url}}" chromium-signed.apk
 
       - name: Upload to Release
         uses: svenstaro/upload-release-action@v2
