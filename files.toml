@@ -1,6 +1,6 @@
 [app]
-urlKey = "https://2010.filemail.com/api/file/"
+url = "https://2010.filemail.com/api/file/"
 [[app.chromium]]
-app = "get?filekey=_7m_2GKy7oJY-EjqudU3bEDCwr6_wjenqkCmDrl0ZNsSNQtM1msQq-oId4qZZjeF&track=Uo6D8a3O&pk_vid=cf897e6ea1754b481726649574619a1d"
+url = "get?filekey=_7m_2GKy7oJY-EjqudU3bEDCwr6_wjenqkCmDrl0ZNsSNQtM1msQq-oId4qZZjeF&track=Uo6D8a3O&pk_vid=cf897e6ea1754b481726649574619a1d"
 [[app.brave]]
-app ="get?file....."
+url ="get?file....."
