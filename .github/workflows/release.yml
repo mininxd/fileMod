@@ -17,17 +17,17 @@ jobs:
 
       - name: Read .TOML
         uses: SebRollen/toml-action@v1.2.0
-        id: read_app
+        id: read_toml
         with:
           file: 'files.toml'
           field: 'app'
 
       - name: Download APK
         run: |
-          sudo wget "${{steps.read_app.outputs.url}}${{steps.read_app.outputs.chromium.url}}"
+          sudo wget "${{steps.read_toml.outputs.app.url}}${{${{steps.read_toml.outputs.app.chromium.url}}"
           ls -a
           tree ./
-          mv "${{steps.read_app.outputs.chromium.url}}" chromium-signed.apk
+          mv "${{${{steps.read_toml.outputs.app.chromium.url}}" chromium-signed.apk
 
       - name: Upload to Release
         uses: svenstaro/upload-release-action@v2
