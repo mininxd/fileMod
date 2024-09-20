@@ -28,9 +28,10 @@ jobs:
           body: |
               __Added More ChromeXt Build__
 
-              Chromium _v131.0.6725.0_
-              Brave Browser _v1.61.121_
-              Edge _v128.0.2739.82_
+              Chromium _`v131.0.6725.0`_
+              Brave _`v1.61.121`_
+              Edge _`v128.0.2739.82`_
+              Kiwi _`v124.0.6327.4`_
 
               > __FEATURES__
               >  ErudaConsole
