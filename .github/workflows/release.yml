@@ -23,8 +23,9 @@ jobs:
           mv "braveXt.apk?rlkey=zdb94ol6i3acign5vh4zwyw5c&st=7ashbfnb&dl=1" brave-signed.apk
           mv "edge-armv7.apk?rlkey=923iflpa04jh18nwiwqs89urs&st=2gs7ln79&dl=1" edge-signed-armv7.apk
           mv "edge-arm64.apk?rlkey=5odw02lncw5tmxtyb4todgy77&st=2zqpx37t&dl=1" edge-signed-arm64.apk
-          mv "kiwi-armv7.apk?rlkey=5895x5h2hl6i0sdjb3s9i8ju1&st=79ia9c19&dl=1' kiwi-signed-armv7.apk
+          mv "kiwi-armv7.apk?rlkey=5895x5h2hl6i0sdjb3s9i8ju1&st=79ia9c19&dl=1" kiwi-signed-armv7.apk
           mv "kiwi-arm64.apk?rlkey=c6th9g9d8nlb8nupvzctu8rfv&st=7nxkfdvb&dl=1" kiwi-signed-arm64.apk
+          tree ./
 
       - name: Upload to Release
         uses: svenstaro/upload-release-action@v2
