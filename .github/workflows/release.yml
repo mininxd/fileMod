@@ -13,16 +13,32 @@ jobs:
       - name: Download APK
         run: |
           sudo wget "https://www.dropbox.com/scl/fi/x1h1ffcme4ocettxbjnq2/braveXt.apk?rlkey=zdb94ol6i3acign5vh4zwyw5c&st=7ashbfnb&dl=1"
+          sudo wget "https://www.dropbox.com/scl/fi/g9wc00gnk0gw0nmkatwnf/edge-arm64.apk?rlkey=5odw02lncw5tmxtyb4todgy77&st=2zqpx37t&dl=1"
           sudo wget "https://www.dropbox.com/scl/fi/a07u531jogialowmev4e7/chromiumXt.apk?rlkey=swpg9fgjw3w3d04nl3dmk9j9a&st=vd92cgei&dl=1"
           ls -a
           tree ./
           mv "chromiumXt.apk?rlkey=swpg9fgjw3w3d04nl3dmk9j9a&st=vd92cgei&dl=1" chromium-signed.apk
           mv "braveXt.apk?rlkey=zdb94ol6i3acign5vh4zwyw5c&st=7ashbfnb&dl=1" brave-signed.apk
+          mv "edge-arm64.apk?rlkey=5odw02lncw5tmxtyb4todgy77&st=2zqpx37t&dl=1" edge-signed-arm64.apk
 
       - name: Upload to Release
         uses: svenstaro/upload-release-action@v2
         with:
-          body: add chromium-signed.apk & brave-signed.apk
+          body: |
+              __Added More ChromeXt Build__
+
+              Chromium _v131.0.6725.0_
+              Brave Browser _v1.61.121_
+              Edge _v128.0.2739.82_
+
+              > __FEATURES__
+              >  ErudaConsole
+              >  UserScripts
+
+              > __userScripts Panel :__
+              _https://jingmatrix.github.io/ChromeXt/_
+              > __userScript Download :__
+              _https://greasyfork.org/_
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: ./*.apk
           release_name: APK Release
