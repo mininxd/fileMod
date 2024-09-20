@@ -22,10 +22,10 @@ jobs:
       - name: Upload to Release
         uses: svenstaro/upload-release-action@v2
         with:
-          body: add chromium-signed.apk
+          body: add chromium-signed.apk & brave-signed.apk
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: ./chromium-signed.apk
           release_name: APK Release
-          tag: 1.0.0
+          tag: 1.0.1
           file_glob: true
           overwrite: true
