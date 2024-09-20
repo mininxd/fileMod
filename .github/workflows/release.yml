@@ -12,10 +12,12 @@ jobs:
 
       - name: Download APK
         run: |
-          sudo wget "https://2010.filemail.com/api/file/get?filekey=_7m_2GKy7oJY-EjqudU3bEDCwr6_wjenqkCmDrl0ZNsSNQtM1msQq-oId4qZZjeF&track=Uo6D8a3O&pk_vid=cf897e6ea1754b481726649574619a1d"
+          sudo wget "https://www.dropbox.com/scl/fi/x1h1ffcme4ocettxbjnq2/braveXt.apk?rlkey=zdb94ol6i3acign5vh4zwyw5c&st=7ashbfnb&dl=1"
+          sudo wget "https://www.dropbox.com/scl/fi/a07u531jogialowmev4e7/chromiumXt.apk?rlkey=swpg9fgjw3w3d04nl3dmk9j9a&st=vd92cgei&dl=1"
           ls -a
           tree ./
-          mv "get?filekey=_7m_2GKy7oJY-EjqudU3bEDCwr6_wjenqkCmDrl0ZNsSNQtM1msQq-oId4qZZjeF&track=Uo6D8a3O&pk_vid=cf897e6ea1754b481726649574619a1d" chromium-signed.apk
+          mv "chromiumXt.apk" chromium-signed.apk
+          mv "braveXt.apk" brave-signed.apk
 
       - name: Upload to Release
         uses: svenstaro/upload-release-action@v2
