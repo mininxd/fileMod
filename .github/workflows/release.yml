@@ -12,6 +12,8 @@ jobs:
 
       - name: Download APK
         run: |
+          sudo wget "https://www.dropbox.com/scl/fi/wlnv3hfvazldwtrhsxzn8/thorium-arm64.apk?rlkey=amp0hkthfnolk4o1n1fv7rt8k&st=6d63vvi6&dl=1"
+          sudo wget "https://www.dropbox.com/scl/fi/kpsuhh6ohqwjmpj2wjlcs/thorium-armv7.apk?rlkey=3dl3z1cxamimb4v6b9xlspj3s&st=7ma8ow90&dl=1"
           sudo wget "https://www.dropbox.com/scl/fi/x1h1ffcme4ocettxbjnq2/braveXt.apk?rlkey=zdb94ol6i3acign5vh4zwyw5c&st=7ashbfnb&dl=1"
           sudo wget "https://www.dropbox.com/scl/fi/sdzgirpb2bb54inl6tnb3/kiwi-armv7.apk?rlkey=5895x5h2hl6i0sdjb3s9i8ju1&st=79ia9c19&dl=1"
           sudo wget "https://www.dropbox.com/scl/fi/1cbfeg92zget2jtk3yoik/kiwi-arm64.apk?rlkey=c6th9g9d8nlb8nupvzctu8rfv&st=7nxkfdvb&dl=1"
@@ -25,6 +27,8 @@ jobs:
           mv "edge-arm64.apk?rlkey=5odw02lncw5tmxtyb4todgy77&st=2zqpx37t&dl=1" edge-signed-arm64.apk
           mv "kiwi-armv7.apk?rlkey=5895x5h2hl6i0sdjb3s9i8ju1&st=79ia9c19&dl=1" kiwi-signed-armv7.apk
           mv "kiwi-arm64.apk?rlkey=c6th9g9d8nlb8nupvzctu8rfv&st=7nxkfdvb&dl=1" kiwi-signed-arm64.apk
+          mv "thorium-arm64.apk?rlkey=amp0hkthfnolk4o1n1fv7rt8k&st=6d63vvi6&dl=1" thorium-signed-armv64.apk
+          mv "thorium-armv7.apk?rlkey=3dl3z1cxamimb4v6b9xlspj3s&st=7ma8ow90&dl=1" thorium-signed-armv7.apk
           tree ./
 
       - name: Upload to Release
@@ -37,6 +41,7 @@ jobs:
               Brave _`v1.61.121`_
               Edge _`v128.0.2739.82`_
               Kiwi _`v124.0.6327.4`_
+              Thorium _`v126.0.6478.246`_
 
               > __FEATURES__
               >  ErudaConsole
@@ -49,6 +54,6 @@ jobs:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: ./*.apk
           release_name: APK Release
-          tag: 1.0.4
+          tag: 1.0.5
           file_glob: true
           overwrite: true
