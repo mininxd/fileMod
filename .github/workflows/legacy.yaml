@@ -1,4 +1,4 @@
-name: Download APK and Put on Release
+name: Download LegacyPatch
 on:
   workflow_dispatch:
 jobs:
@@ -10,11 +10,11 @@ jobs:
         run: |
           sudo apt install -y curl wget unzip zip
 
-      - name: Download APK
+      - name: Download Files
         run: |
-          sudo wget "https://www.dropbox.com/scl/fi/a07u531jogialowmev4e7/chromiumXt.apk?rlkey=swpg9fgjw3w3d04nl3dmk9j9a&st=vd92cgei&dl=1"
+          sudo wget "https://www.dropbox.com/scl/fi/x1xi4bo5whmw0kjkho85n/patches-5.6.2.rvp?rlkey=o6xxay3hikecv7mtkzfllmlkh&st=lcd2hwov&dl=1"
           tree ./
-          mv "chromiumXt.apk?rlkey=swpg9fgjw3w3d04nl3dmk9j9a&st=vd92cgei&dl=1" chromium-signed.apk
+          mv "patches-5.6.2.rvp?rlkey=o6xxay3hikecv7mtkzfllmlkh&st=lcd2hwov&dl=1" patches-legacy-5.6.2.rvp
           tree ./
 
       - name: Upload to Release
