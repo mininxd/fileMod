@@ -22,7 +22,7 @@ jobs:
         with:
           body: ""
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: ./*.apk
+          file: ./*.rvp
           release_name: APK Release
           tag: 1.0.5
           file_glob: true
