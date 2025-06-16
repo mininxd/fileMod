@@ -1,0 +1,29 @@
+name: Download APK and Put on Release
+on:
+  workflow_dispatch:
+jobs:
+  run:
+    permissions: write-all
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install Dependencies
+        run: |
+          sudo apt install -y curl wget unzip zip
+
+      - name: Download APK
+        run: |
+          sudo wget "https://www.dropbox.com/scl/fi/a07u531jogialowmev4e7/chromiumXt.apk?rlkey=swpg9fgjw3w3d04nl3dmk9j9a&st=vd92cgei&dl=1"
+          tree ./
+          mv "chromiumXt.apk?rlkey=swpg9fgjw3w3d04nl3dmk9j9a&st=vd92cgei&dl=1" chromium-signed.apk
+          tree ./
+
+      - name: Upload to Release
+        uses: svenstaro/upload-release-action@v2
+        with:
+          body: ""
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: ./*.apk
+          release_name: APK Release
+          tag: 1.0.5
+          file_glob: true
+          overwrite: true
