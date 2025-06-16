@@ -20,7 +20,8 @@ jobs:
       - name: Upload to Release
         uses: svenstaro/upload-release-action@v2
         with:
-          body: ""
+          body: |
+            test
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: ./*.rvp
           release_name: APK Release
