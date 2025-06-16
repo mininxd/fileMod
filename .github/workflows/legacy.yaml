@@ -5,29 +5,34 @@ on:
 
 jobs:
   run:
-    permissions: write-all
     runs-on: ubuntu-latest
+    permissions: write-all
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Install Dependencies
-        run: |
-          sudo apt update
-          sudo apt install -y wget zip unzip
+      - name: Install dependencies
+        run: sudo apt-get update && sudo apt-get install -y wget zip
 
-      - name: Download Files
-        run: |
-          wget -O patches-legacy-5.6.2.rvp "https://www.dropbox.com/scl/fi/x1xi4bo5whmw0kjkho85n/patches-5.6.2.rvp?rlkey=o6xxay3hikecv7mtkzfllmlkh&st=lcd2hwov&dl=1"
-          ls -lh
+      - name: Download file
+        run: wget -O patches-legacy-5.6.2.rvp "https://www.dropbox.com/scl/fi/x1xi4bo5whmw0kjkho85n/patches-5.6.2.rvp?rlkey=o6xxay3hikecv7mtkzfllmlkh&st=lcd2hwov&dl=1"
 
-      - name: Upload to Release
+      - name: Create GitHub Release if not exists
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: 1.0.5
+          release_name: APK Release
+          body: test
+          draft: false
+          prerelease: false
+
+      - name: Upload file to Release
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: patches-legacy-5.6.2.rvp
           tag: 1.0.5
-          release_name: 5.6.2.rvp
-          body: test
           overwrite: true
-          make_latest: true
+          
