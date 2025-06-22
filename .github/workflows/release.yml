@@ -1,39 +1,50 @@
-name: Download Strava and Put on Release
+name: Download Strava and Release
 
 on:
   workflow_dispatch:
 
 jobs:
   run:
-    permissions: write-all
     runs-on: ubuntu-latest
+    permissions: write-all
     steps:
-      - name: Checkout Repo
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Install Dependencies
+      - name: Generate tag and release name
         run: |
-          sudo apt update
-          sudo apt install -y curl wget zip tree || true
+          TAG="build-${{ github.run_number }}"
+          NAME="LegacyPatch-${TAG}-$(date +%s)"
+          echo "TAG=$TAG" >> $GITHUB_ENV
+          echo "RELEASE_NAME=$NAME" >> $GITHUB_ENV
 
-      - name: Download APK with Proper Name
-        run: |
-          wget -O strava-416.14-signed.apk "https://www.dropbox.com/scl/fi/2s3wls4m60uv6ic13mntw/strava_v416.14_modded.xapk?rlkey=w5jehyzke07519redkzjv6c4r&st=ifsba1hf&dl=1"
-          tree . || true
+      - name: Install dependencies
+        run: sudo apt-get update && sudo apt-get install -y wget zip
+
+      - name: Download file
+        run: wget -O strava-416.14-signed.apk "https://www.dropbox.com/scl/fi/2s3wls4m60uv6ic13mntw/strava_v416.14_modded.xapk?rlkey=w5jehyzke07519redkzjv6c4r&st=ifsba1hf&dl=1"
+
+      - name: Create GitHub Release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ env.TAG }}
+          release_name: ${{ env.RELEASE_NAME }}
+          body: Auto-generated release for ${{ env.TAG }}
+          draft: false
+          prerelease: false
 
       - name: Upload to Release
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: strava-416.14-signed.apk
-          asset_name: strava-416.14-signed.apk
-          tag: 1.0.5
-          release_name: APK Release
+          tag: ${{ env.TAG }}
           body: |
             __Strava v416.14 Premium__
 
             > __FEATURES__
-            > Premium Features, Routes, Replay, Matched Run, Segment Efforts, Map Style
-            > Remove Subscription Suggestion
+            >  Premium Features, Routes, Replay, Matched Run, Segment Efforts, Map Style
+            >  Remove Subscription Suggestion
           overwrite: true
           
