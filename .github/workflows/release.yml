@@ -1,6 +1,8 @@
-name: Download APK and Put on Release
+name: Download Strava and Put on Release
+
 on:
   workflow_dispatch:
+
 jobs:
   run:
     permissions: write-all
@@ -10,50 +12,24 @@ jobs:
         run: |
           sudo apt install -y curl wget unzip zip
 
-      - name: Download APK
+      - name: Download APKs with Proper Names
         run: |
-          sudo wget "https://www.dropbox.com/scl/fi/wlnv3hfvazldwtrhsxzn8/thorium-arm64.apk?rlkey=amp0hkthfnolk4o1n1fv7rt8k&st=6d63vvi6&dl=1"
-          sudo wget "https://www.dropbox.com/scl/fi/kpsuhh6ohqwjmpj2wjlcs/thorium-armv7.apk?rlkey=3dl3z1cxamimb4v6b9xlspj3s&st=7ma8ow90&dl=1"
-          sudo wget "https://www.dropbox.com/scl/fi/x1h1ffcme4ocettxbjnq2/braveXt.apk?rlkey=zdb94ol6i3acign5vh4zwyw5c&st=7ashbfnb&dl=1"
-          sudo wget "https://www.dropbox.com/scl/fi/sdzgirpb2bb54inl6tnb3/kiwi-armv7.apk?rlkey=5895x5h2hl6i0sdjb3s9i8ju1&st=79ia9c19&dl=1"
-          sudo wget "https://www.dropbox.com/scl/fi/1cbfeg92zget2jtk3yoik/kiwi-arm64.apk?rlkey=c6th9g9d8nlb8nupvzctu8rfv&st=7nxkfdvb&dl=1"
-          sudo wget "https://www.dropbox.com/scl/fi/5pa6opthz30yi5g3bhym9/edge-armv7.apk?rlkey=923iflpa04jh18nwiwqs89urs&st=2gs7ln79&dl=1"
-          sudo wget "https://www.dropbox.com/scl/fi/g9wc00gnk0gw0nmkatwnf/edge-arm64.apk?rlkey=5odw02lncw5tmxtyb4todgy77&st=2zqpx37t&dl=1"
-          sudo wget "https://www.dropbox.com/scl/fi/a07u531jogialowmev4e7/chromiumXt.apk?rlkey=swpg9fgjw3w3d04nl3dmk9j9a&st=vd92cgei&dl=1"
-          tree ./
-          mv "chromiumXt.apk?rlkey=swpg9fgjw3w3d04nl3dmk9j9a&st=vd92cgei&dl=1" chromium-signed.apk
-          mv "braveXt.apk?rlkey=zdb94ol6i3acign5vh4zwyw5c&st=7ashbfnb&dl=1" brave-signed.apk
-          mv "edge-armv7.apk?rlkey=923iflpa04jh18nwiwqs89urs&st=2gs7ln79&dl=1" edge-signed-armv7.apk
-          mv "edge-arm64.apk?rlkey=5odw02lncw5tmxtyb4todgy77&st=2zqpx37t&dl=1" edge-signed-arm64.apk
-          mv "kiwi-armv7.apk?rlkey=5895x5h2hl6i0sdjb3s9i8ju1&st=79ia9c19&dl=1" kiwi-signed-armv7.apk
-          mv "kiwi-arm64.apk?rlkey=c6th9g9d8nlb8nupvzctu8rfv&st=7nxkfdvb&dl=1" kiwi-signed-arm64.apk
-          mv "thorium-arm64.apk?rlkey=amp0hkthfnolk4o1n1fv7rt8k&st=6d63vvi6&dl=1" thorium-signed-armv64.apk
-          mv "thorium-armv7.apk?rlkey=3dl3z1cxamimb4v6b9xlspj3s&st=7ma8ow90&dl=1" thorium-signed-armv7.apk
+          wget -O strava-416.14-signed.apk "https://www.dropbox.com/scl/fi/2s3wls4m60uv6ic13mntw/strava_v416.14_modded.xapk?rlkey=w5jehyzke07519redkzjv6c4r&st=ifsba1hf&dl=1"
           tree ./
 
       - name: Upload to Release
         uses: svenstaro/upload-release-action@v2
         with:
           body: |
-              __Added More ChromeXt Build__
-
-              Chromium _`v131.0.6725.0`_
-              Brave _`v1.61.121`_
-              Edge _`v128.0.2739.82`_
-              Kiwi _`v124.0.6327.4`_
-              Thorium _`v126.0.6478.246`_
-
+              __Strava v416.14 Premium__
+            
               > __FEATURES__
-              >  ErudaConsole
-              >  UserScripts
-
-              > __userScripts Panel :__
-              _https://jingmatrix.github.io/ChromeXt/_
-              > __userScript Download :__
-              _https://greasyfork.org/_
+              >  Premium Features, Routes, Replay, Matched Run, Segment Efforts, Map Style
+              >  Remove Subscribtion Suggestion
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: ./*.apk
           release_name: APK Release
           tag: 1.0.5
           file_glob: true
           overwrite: true
+          
