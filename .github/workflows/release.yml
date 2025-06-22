@@ -13,7 +13,7 @@ jobs:
       - name: Generate tag and release name
         run: |
           TAG="build-${{ github.run_number }}"
-          NAME="LegacyPatch-${TAG}-$(date +%s)"
+          NAME="Strava-Signed-${TAG}-$(date +%s)"
           echo "TAG=$TAG" >> $GITHUB_ENV
           echo "RELEASE_NAME=$NAME" >> $GITHUB_ENV
 
@@ -21,7 +21,7 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y wget zip
 
       - name: Download file
-        run: wget -O strava-416.14-signed.apk "https://www.dropbox.com/scl/fi/2s3wls4m60uv6ic13mntw/strava_v416.14_modded.xapk?rlkey=w5jehyzke07519redkzjv6c4r&st=ifsba1hf&dl=1"
+        run: wget -O strava-416.14-signed.xapk "https://www.dropbox.com/scl/fi/2s3wls4m60uv6ic13mntw/strava_v416.14_modded.xapk?rlkey=w5jehyzke07519redkzjv6c4r&st=ifsba1hf&dl=1"
 
       - name: Create GitHub Release
         uses: actions/create-release@v1
@@ -38,7 +38,7 @@ jobs:
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: strava-416.14-signed.apk
+          file: strava-416.14-signed.xapk
           tag: ${{ env.TAG }}
           body: |
             __Strava v416.14 Premium__
