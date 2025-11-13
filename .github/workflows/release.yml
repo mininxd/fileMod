@@ -38,10 +38,10 @@ jobs:
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: strava-437.11.signed.apk
+          file: strava-437.11-signed.apk
           tag: ${{ env.TAG }}
           body: |
-            __Strava v416.14 Premium__
+            __Strava v437.11 Premium__
 
             > __FEATURES__
             >  Premium Features, Routes, Replay, Matched Run, Segment Efforts, Map Style
