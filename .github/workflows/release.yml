@@ -21,7 +21,7 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y wget zip
 
       - name: Download file
-        run: wget -O strava-416.14-signed.xapk "https://www.dropbox.com/scl/fi/2s3wls4m60uv6ic13mntw/strava_v416.14_modded.xapk?rlkey=w5jehyzke07519redkzjv6c4r&st=ifsba1hf&dl=1"
+        run: wget -O strava-437.11-signed.apk "https://www.dropbox.com/scl/fi/h7gm4b90vdoiumey8vmr8/Strava_437.11.apk?rlkey=nhjcz1hbomz8qdvl6domwcxx7&st=zof1ggu1&dl=1"
 
       - name: Create GitHub Release
         uses: actions/create-release@v1
@@ -38,7 +38,7 @@ jobs:
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: strava-416.14-signed.xapk
+          file: strava-437.11.signed.apk
           tag: ${{ env.TAG }}
           body: |
             __Strava v416.14 Premium__
