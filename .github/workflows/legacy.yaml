@@ -2,6 +2,15 @@ name: Download Mods
 
 on:
   workflow_dispatch:
+    inputs:
+      file_name:
+        description: "Filename to save the downloaded file as (example: strava-437.11-signed.apk)"
+        required: true
+        type: string
+      download_url:
+        description: "URL to download the APK from"
+        required: true
+        type: string
 
 jobs:
   run:
@@ -20,27 +29,9 @@ jobs:
       - name: Install dependencies
         run: sudo apt-get update && sudo apt-get install -y wget zip
 
-      - name: Ask for desired output filename
-        id: filename
-        run: |
-          echo "Enter the filename you want (example: strava-437.11-signed.apk):"
-          read USER_FILE
-          echo "FILE_NAME=$USER_FILE" >> $GITHUB_ENV
-
-      - name: Ask for download URL
-        id: url
-        run: |
-          echo "Enter the URL to download:"
-          read USER_URL
-          echo "DOWNLOAD_URL=$USER_URL" >> $GITHUB_ENV
-
-      - name: Confirm before starting download
-        run: |
-          echo "Press ENTER to start downloading..."
-          read
-
       - name: Download file
-        run: wget -O "${{ env.FILE_NAME }}" "${{ env.DOWNLOAD_URL }}"
+        run: |
+          wget -O "${{ inputs.file_name }}" "${{ inputs.download_url }}"
 
       - name: Create GitHub Release
         uses: actions/create-release@v1
@@ -56,6 +47,6 @@ jobs:
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: ${{ env.FILE_NAME }}
+          file: ${{ inputs.file_name }}
           tag: ${{ env.TAG }}
           overwrite: true
