@@ -1,4 +1,4 @@
-name: Download LegacyPatch
+name: Download Mods
 
 on:
   workflow_dispatch:
@@ -13,15 +13,34 @@ jobs:
       - name: Generate tag and release name
         run: |
           TAG="build-${{ github.run_number }}"
-          NAME="LegacyPatch-${TAG}-$(date +%s)"
+          NAME="Strava-Signed-${TAG}-$(date +%s)"
           echo "TAG=$TAG" >> $GITHUB_ENV
           echo "RELEASE_NAME=$NAME" >> $GITHUB_ENV
 
       - name: Install dependencies
         run: sudo apt-get update && sudo apt-get install -y wget zip
 
+      - name: Ask for desired output filename
+        id: filename
+        run: |
+          echo "Enter the filename you want (example: strava-437.11-signed.apk):"
+          read USER_FILE
+          echo "FILE_NAME=$USER_FILE" >> $GITHUB_ENV
+
+      - name: Ask for download URL
+        id: url
+        run: |
+          echo "Enter the URL to download:"
+          read USER_URL
+          echo "DOWNLOAD_URL=$USER_URL" >> $GITHUB_ENV
+
+      - name: Confirm before starting download
+        run: |
+          echo "Press ENTER to start downloading..."
+          read
+
       - name: Download file
-        run: wget -O patches-legacy-5.6.2.rvp "https://www.dropbox.com/scl/fi/x1xi4bo5whmw0kjkho85n/patches-5.6.2.rvp?rlkey=o6xxay3hikecv7mtkzfllmlkh&st=lcd2hwov&dl=1"
+        run: wget -O "${{ env.FILE_NAME }}" "${{ env.DOWNLOAD_URL }}"
 
       - name: Create GitHub Release
         uses: actions/create-release@v1
@@ -30,7 +49,6 @@ jobs:
         with:
           tag_name: ${{ env.TAG }}
           release_name: ${{ env.RELEASE_NAME }}
-          body: Auto-generated release for ${{ env.TAG }}
           draft: false
           prerelease: false
 
@@ -38,6 +56,6 @@ jobs:
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: patches-legacy-5.6.2.rvp
+          file: ${{ env.FILE_NAME }}
           tag: ${{ env.TAG }}
           overwrite: true
